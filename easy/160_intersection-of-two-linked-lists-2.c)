@@ -9,8 +9,8 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
     struct ListNode * a = headA,* b = headB;
     while (a != b) {
         // concatenate two lists in opposite orders, A+B and B+A.
-        a = !a ? headB : a->next;
-        b = !b ? headA : b->next;
+        a = a? a->next : headB;
+        b = b? b->next : headA;
     }
     return a;
 }
