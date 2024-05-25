@@ -1,0 +1,45 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+#define TABLE_SIZE 10
+
+int hash(struct ListNode *ptr){
+    return (int) ((long long)ptr % TABLE_SIZE);
+}
+
+struct hashNode {
+    struct ListNode *node;
+    struct hashNode *next;
+};
+
+
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
+    //initialize the hash table to NULL
+    struct hashNode *hash_table[TABLE_SIZE] = {NULL};
+    
+    //insert nodes in listA to hash table
+    struct hashNode** ptr;
+    while (headA) {
+        ptr = (struct hashNode**)hash_table + hash(headA);
+        while (*ptr) ptr = &((*ptr)->next);
+        *ptr = malloc(sizeof(struct hashNode));
+        (*ptr)->node = headA;
+        (*ptr)->next = NULL;
+        headA = headA->next;
+    }
+    
+    struct hashNode* LPtr;
+    while (headB) {
+        LPtr = hash_table[hash(headB)];
+        while (LPtr) {
+            if (LPtr->node == headB) return headB;
+            LPtr = LPtr->next;
+        }
+        headB = headB->next;
+    }
+    return NULL;
+}
