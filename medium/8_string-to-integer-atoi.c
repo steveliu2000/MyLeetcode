@@ -7,7 +7,7 @@ int myAtoi(char* s) {
         ++s;
     }
     else if (*s == '+') ++s;
-
+    /*
     int ans = 0, max = INT_MAX /10, min = INT_MIN /10;
     while (isdigit(*s)) {
         // INT_MAX = 2,147,483,647
@@ -17,6 +17,15 @@ int myAtoi(char* s) {
 
         if (neg) ans = ans * 10 - (*s-'0');
         else ans = ans * 10 + (*s-'0');
+        ++s;
+    }
+    */
+    long long ans = 0;
+    while (isdigit(*s)) {
+        if (neg) ans = ans * 10 - (*s-'0');
+        else ans = ans * 10 + (*s-'0');
+        if (ans > INT_MAX) return INT_MAX;
+        if (ans < INT_MIN) return INT_MIN;
         ++s;
     }
     return ans;
