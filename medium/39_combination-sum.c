@@ -31,7 +31,7 @@ int** combinationSum(int* candidates, int candidatesSize, int target, int* retur
     qsort(candidates, candidatesSize, sizeof(int), cmp);
     *returnSize = 0;
     if (target < candidates[0]) return NULL;
-    int** out = malloc(150 * sizeof(int*)), **ptr;
+    int** out = malloc(150 * sizeof(int*));
     *returnColumnSizes = malloc(150 * sizeof(int));
     cSHelper(candidates, candidatesSize, target, returnSize, returnColumnSizes, 0, out);
     return out;
